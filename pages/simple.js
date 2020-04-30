@@ -3,6 +3,7 @@ import fetch from "isomorphic-unfetch";
 import Row from "../components/Row";
 import Column from "../components/Column";
 import { Article } from "../components/Article";
+import { SimpleArticle } from "../components/SimpleArticle";
 
 export default function Home({ layout }) {
   return (
@@ -17,8 +18,8 @@ export default function Home({ layout }) {
           {layout.map((row, index) => (
             <Row key={index}>
               {row.columns.map((column, index) => (
-                <Column key={index} width={column.width}>
-                  <Article article={column} />
+                <Column key={index} width={12}>
+                  <SimpleArticle article={column} />
                 </Column>
               ))}
             </Row>
