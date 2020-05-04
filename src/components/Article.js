@@ -1,6 +1,9 @@
 import * as React from "react";
 import styled from "@emotion/styled";
 import { FiEdit3, FiTrash2 } from "react-icons/fi";
+import { useDispatch } from "react-redux";
+import { deletePost, updatePostTitle } from "../store";
+import { ArticleDeleteButton } from "./ArticleDeleteButton";
 const { useState, useEffect, createRef, useRef } = React;
 
 const StyledArticle = styled.article`
@@ -60,17 +63,19 @@ const normalizeImageUrl = (urlString, size) => {
 
   return url;
 };
+
 export const Article = ({ article }) => {
-  const [title, setTitle] = useState(article.title);
   const [isEdit, setEditing] = useState(false);
   const imageUrl = normalizeImageUrl(article.imageUrl, article.width);
   const inputRef = useRef(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (isEdit) {
       inputRef.current.focus();
     }
   }, [isEdit]);
+
   return (
     <StyledArticle>
       <a className={"article__link"} target="_blank" href={article.url}>
@@ -79,22 +84,26 @@ export const Article = ({ article }) => {
       {isEdit ? (
         <textarea
           className="article__input"
-          value={title}
+          value={article.title}
           ref={inputRef}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) =>
+            dispatch(updatePostTitle({ id: article.id, title: e.target.value }))
+          }
         />
       ) : (
         <a className={"article__link"} target="_blank" href={article.url}>
-          <h3 className="article__title">{title}</h3>
+          <h3 className="article__title">{article.title}</h3>
         </a>
       )}
 
-      <button className="article__edit" onClick={() => setEditing(!isEdit)}>
+      <button
+        title="Edit post"
+        className="article__edit"
+        onClick={() => setEditing(!isEdit)}
+      >
         <FiEdit3 />
       </button>
-      <button className="article__delete">
-        <FiTrash2 />
-      </button>
+      <ArticleDeleteButton artcileId={article.id} />
     </StyledArticle>
   );
 };

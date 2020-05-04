@@ -19,7 +19,6 @@ const useEffectDarkMode = () => {
     const lsItem = localStorage.getItem("dark");
     const lsDark = lsItem === "true";
     const osDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    console.log("is os dark");
     const isDark = !lsItem ? osDark : lsDark;
     setThemeState({
       ...themeState,

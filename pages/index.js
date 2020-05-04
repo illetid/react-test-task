@@ -1,10 +1,23 @@
+import React, { useEffect } from "react";
 import Head from "next/head";
-import fetch from "isomorphic-unfetch";
-import Row from "../components/Row";
-import Column from "../components/Column";
-import { Article } from "../components/Article";
+import Row from "../src/components/Row";
+import Column from "../src/components/Column";
+import { Article } from "../src/components/Article";
+import { fetchPosts } from "../src/store";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
 
-export default function Home({ layout }) {
+export default function Home() {
+  const dispatch = useDispatch();
+
+  const { loading, error, posts } = useSelector((state) => state);
+
+  useEffect(() => {
+    if (!posts.length) {
+      dispatch(fetchPosts());
+    }
+  }, [dispatch, posts]);
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Something went wrong try again later</div>;
   return (
     <div className="container">
       <Head>
@@ -14,29 +27,16 @@ export default function Home({ layout }) {
 
       <main>
         <div>
-          {layout.map((row, index) => (
-            <Row key={index}>
-              {row.columns.map((column, index) => (
-                <Column key={index} width={column.width}>
+          <Row>
+            {posts &&
+              posts.map((column, index) => (
+                <Column key={column.id} width={column.width}>
                   <Article article={column} />
                 </Column>
               ))}
-            </Row>
-          ))}
+          </Row>
         </div>
       </main>
     </div>
   );
-}
-
-export async function getStaticProps() {
-  const data = await fetch(
-    "https://storage.googleapis.com/aller-structure-task/test_data.json"
-  );
-
-  const layout = await data.json();
-
-  return {
-    props: { layout: layout[0] },
-  };
 }

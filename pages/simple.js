@@ -1,43 +1,44 @@
 import Head from "next/head";
 import fetch from "isomorphic-unfetch";
-import Row from "../components/Row";
-import Column from "../components/Column";
-import { Article } from "../components/Article";
-import { SimpleArticle } from "../components/SimpleArticle";
+import Row from "../src/components/Row";
+import Column from "../src/components/Column";
+import { SimpleArticle } from "../src/components/SimpleArticle";
+import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { fetchPosts } from "../src/store";
 
-export default function Home({ layout }) {
+export default function SimpleListPage() {
+  const dispatch = useDispatch();
+
+  const { loading, error, posts } = useSelector((state) => state);
+
+  useEffect(() => {
+    if (!posts.length) {
+      dispatch(fetchPosts());
+    }
+  }, [dispatch, posts]);
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Something went wrong try again later</div>;
+
   return (
     <div className="container">
       <Head>
-        <title>Home page</title>
+        <title>Sample page</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
         <div>
-          {layout.map((row, index) => (
-            <Row key={index}>
-              {row.columns.map((column, index) => (
-                <Column key={index} width={12}>
+          <Row>
+            {posts &&
+              posts.map((column, index) => (
+                <Column key={column.id} width={12}>
                   <SimpleArticle article={column} />
                 </Column>
               ))}
-            </Row>
-          ))}
+          </Row>
         </div>
       </main>
     </div>
   );
-}
-
-export async function getStaticProps() {
-  const data = await fetch(
-    "https://storage.googleapis.com/aller-structure-task/test_data.json"
-  );
-
-  const layout = await data.json();
-
-  return {
-    props: { layout: layout[0] },
-  };
 }

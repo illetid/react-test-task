@@ -1,24 +1,25 @@
 import * as React from "react";
 import NextApp from "next/app";
-import { CacheProvider } from "@emotion/core";
+import { Provider } from "react-redux";
+import { store } from "../src/store";
+import { ThemeProvider } from "../src/utils/ThemeContext";
+import { Layout } from "../src/components/Layout";
+import { GlobalStyles } from "../src/utils/GlobalStyles";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
 
-// Use only { cache } from 'emotion'. Don't use { css }.
-// import { cache } from "emotion";
-import { ThemeProvider } from "../utils/ThemeContext";
-
-import { Layout } from "../components/Layout";
-import { GlobalStyles } from "../utils/GlobalStyles";
 export default class App extends NextApp {
   render() {
     const { Component, pageProps } = this.props;
     return (
       <ThemeProvider>
-        {/*<CacheProvider value={cache}>*/}
-        <GlobalStyles></GlobalStyles>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-        {/*</CacheProvider>*/}
+        <Provider store={store}>
+          <GlobalStyles />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </Provider>
       </ThemeProvider>
     );
   }
