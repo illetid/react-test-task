@@ -1,30 +1,28 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/zeit/next.js/tree/canary/packages/create-next-app).
+![screenshot.png](./screenshot.png)
+Built with Next.js, Emotion Styled Components, to manage state used Redux, with Redux Toolkit
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/zeit/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on ZEIT Now
-
-The easiest way to deploy your Next.js app is to use the [ZEIT Now Platform](https://zeit.co/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+# Interview Task
+The provided URL returns JSON, which contains an array of objects representing
+rows. Each row has a field, columns, which contains an array of objects representing
+article previews. In effect, the provided JSON is a simplified representation of the
+Dagbladet front page. We would like you to create a React application that makes a
+request to the provided URL, and renders the rows and articles in accordance with
+the JSON response.
+Each article should have an edit button which swaps out the title with an input field
+that allows the user to edit and save the title. In addition to the edit button, there
+should be a delete button that deletes the article. When an article is deleted, show a
+prompt for a few seconds that allows the user to restore the last deleted article.
+Backend URL: ​ https://storage.googleapis.com/aller-structure-task/test_data.json
+## Additional Details
+The following is an example of a row that appears in the response. The width is
+based on a 12-column grid. A width of 5, therefore, implies that this article should be
+5/12ths of the body width. The other article has a width of 7, meaning it takes up the
+remaining 7/12ths of the body width. All rows will have a width that sums to 12.
+For imageUrl, the height and width of the image can be modified by adding
+&height=X and/or &width=X to the URL.The other fields are hopefully self-explanatory.
+## Bonus Task
+Create two separate routes (or pages if you will), one that shows the full articles with
+images using the rows and columns grid explained in the JSON structure, and
+another route that only shows a simple one column list containing article titles. Make
+sure the browser does not download any unused JavaScript files on the given
+routes.
