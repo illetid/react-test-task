@@ -13,26 +13,37 @@ const HeaderStyled = styled.header`
   border-bottom: 1px solid ${({ theme }) => theme.primary};
   color: ${({ theme }) => theme.primary};
 
-  .header__theme-switcher {
-    color: ${({ theme }) => theme.primary};
-    &:hover {
-      color: ${({ theme }) => theme.secondary};
+  .header {
+    &__theme-switcher {
+      color: ${({ theme }) => theme.primary};
+      &:hover {
+        color: ${({ theme }) => theme.secondary};
+      }
     }
-  }
-  .header__logo {
-    text-decoration: none;
-    color: ${({ theme }) => theme.primary};
-    font-size: ${({ theme }) => theme.fontSizeTitle};
-    cursor: pointer;
-  }
+    &__logo {
+      text-decoration: none;
+      color: ${({ theme }) => theme.primary};
+      font-size: ${({ theme }) => theme.fontSizeTitle};
+      cursor: pointer;
+    }
 
-  .header__content {
-    display: flex;
-  }
+    &__content {
+      display: flex;
+    }
 
-  .header__menu {
-    list-style: none;
-    padding: 0 16px;
+    &__menu {
+      list-style: none;
+      padding: 0 16px;
+    }
+
+    &__link {
+      text-decoration: none;
+      color: ${({ theme }) => theme.primary};
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 `;
 export const Header = () => {
@@ -47,7 +58,9 @@ export const Header = () => {
         <nav className="header__nav">
           <ul className="header__menu">
             <li>
-              <Link href="/simple">Simple list</Link>
+              <Link href="/simple">
+                <a className="header__link">Simple list</a>
+              </Link>
             </li>
           </ul>
         </nav>

@@ -2,64 +2,70 @@ import * as React from "react";
 import styled from "@emotion/styled";
 import { FiEdit3, FiTrash2 } from "react-icons/fi";
 import { useDispatch } from "react-redux";
-import { deletePost, updatePostTitle } from "../store";
+import { updatePostTitle } from "../store";
 import { ArticleDeleteButton } from "./ArticleDeleteButton";
-const { useState, useEffect, createRef, useRef } = React;
+const { useState, useEffect, useRef } = React;
 
 const StyledArticle = styled.article`
   position: relative;
 
-  .article__input,
-  .article__title {
-    background: transparent;
-    color: ${({ theme }) => theme.text};
-    text-decoration: underline;
-    appearance: none;
-    font-weight: bold;
-    font-size: ${({ theme }) => theme.fontSizeTitle};
-    width: 100%;
-    display: block;
-  }
-  .article__link {
-    display: block;
-    color: ${({ theme }) => theme.text};
-
-    &:hover {
-      color: ${({ theme }) => theme.primary};
+  .article {
+    &__input,
+    &__title {
+      background: transparent;
+      color: ${({ theme }) => theme.text};
+      text-decoration: underline;
+      appearance: none;
+      font-weight: bold;
+      font-size: ${({ theme }) => theme.fontSizeTitle};
+      width: 100%;
+      display: block;
     }
-  }
 
-  .article__edit {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background: ${({ theme }) => theme.background};
-    color: ${({ theme }) => theme.success};
-    display: flex;
-    padding: 8px;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-  }
-  .article__delete {
-    position: absolute;
-    top: 45px;
-    right: 5px;
-    background: ${({ theme }) => theme.background};
-    color: ${({ theme }) => theme.danger};
-    padding: 8px;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
+    &__link,
+    &__title {
+      display: block;
+      color: ${({ theme }) => theme.text};
+
+      &:hover {
+        color: ${({ theme }) => theme.primary};
+      }
+    }
+
+    &__edit {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background: ${({ theme }) => theme.background};
+      color: ${({ theme }) => theme.success};
+      display: flex;
+      padding: 8px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    &__delete {
+      position: absolute;
+      top: 45px;
+      right: 5px;
+      background: ${({ theme }) => theme.background};
+      color: ${({ theme }) => theme.danger};
+      padding: 8px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
   }
 `;
 
 const normalizeImageUrl = (urlString, size) => {
   const url = new URL(urlString);
   const width = Math.round((size / 12) * 900);
+  const height = 300;
 
   url.searchParams.append("width", width);
-  url.searchParams.append("height", 300);
+  url.searchParams.append("height", height);
 
   return url;
 };

@@ -6,7 +6,6 @@ import { Footer } from "./Footer";
 const StyledWrapper = styled.div`
   background: ${(props) => props.theme.background};
   color: ${(props) => props.theme.text};
-
   min-height: 100vh;
   padding: 0 0.5rem;
   display: flex;

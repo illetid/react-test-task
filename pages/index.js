@@ -4,11 +4,10 @@ import Row from "../src/components/Row";
 import Column from "../src/components/Column";
 import { Article } from "../src/components/Article";
 import { fetchPosts } from "../src/store";
-import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function Home() {
   const dispatch = useDispatch();
-
   const { loading, error, posts } = useSelector((state) => state);
 
   useEffect(() => {
@@ -16,6 +15,7 @@ export default function Home() {
       dispatch(fetchPosts());
     }
   }, [dispatch, posts]);
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Something went wrong try again later</div>;
   return (

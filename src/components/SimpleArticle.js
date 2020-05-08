@@ -1,7 +1,5 @@
 import * as React from "react";
 import styled from "@emotion/styled";
-import { FiEdit3, FiTrash2 } from "react-icons/fi";
-const { useState, useEffect, createRef, useRef } = React;
 
 const StyledArticle = styled.article`
   position: relative;

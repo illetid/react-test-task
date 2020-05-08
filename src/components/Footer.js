@@ -9,6 +9,7 @@ const StyledFooter = styled.footer`
   justify-content: center;
   align-items: center;
 `;
+
 export const Footer = ({ children }) => {
   return <StyledFooter>{children}</StyledFooter>;
 };

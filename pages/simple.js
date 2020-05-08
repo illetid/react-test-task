@@ -1,5 +1,4 @@
 import Head from "next/head";
-import fetch from "isomorphic-unfetch";
 import Row from "../src/components/Row";
 import Column from "../src/components/Column";
 import { SimpleArticle } from "../src/components/SimpleArticle";
